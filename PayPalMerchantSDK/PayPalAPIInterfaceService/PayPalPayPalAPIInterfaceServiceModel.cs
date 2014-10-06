@@ -40,6 +40,13 @@ namespace PayPal.PayPalAPIInterfaceService.Model
 		/// </summary>	
 		public static object GetValue(string value,Type enumType)
 		{
+            // Check to see if the value is numeric. If so, do a simple enum conversion.
+            int valueAsInt = 0;
+            if (Int32.TryParse(value, out valueAsInt))
+            {
+                return Enum.ToObject(enumType, valueAsInt);
+            }
+
 			string[] names = Enum.GetNames(enumType);
 			foreach(string name in names)
             {
